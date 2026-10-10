@@ -13,7 +13,7 @@ const guestType = document.querySelector("#guestType");
 const guestAgeGroup = document.querySelector("#guestAgeGroup");
 const musicToggle = document.querySelector("#musicToggle");
 const musicPlayer = document.querySelector("#musicPlayer");
-const musicFrame = document.querySelector("#musicFrame");
+const backgroundMusic = document.querySelector("#backgroundMusic");
 const closeMusic = document.querySelector("#closeMusic");
 const toast = document.querySelector("#toast");
 
@@ -199,19 +199,24 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 3800);
 }
 
-function openMusicPlayer() {
-  musicPlayer.hidden = false;
-  musicFrame.src = musicFrame.dataset.src;
-  musicToggle.setAttribute("aria-pressed", "true");
-  musicToggle.querySelector(".music-label").textContent = "Pausar música";
-  showToast("Música tema ligada ♪");
+async function openMusicPlayer() {
+  try {
+    backgroundMusic.volume = 0.32;
+    await backgroundMusic.play();
+    musicPlayer.hidden = false;
+    musicToggle.setAttribute("aria-pressed", "true");
+    musicToggle.querySelector(".music-label").textContent = "Pausar música";
+    showToast("Trilha da aventura ligada ♪");
+  } catch {
+    showToast("Toque novamente para iniciar a música.");
+  }
 }
 
 function closeMusicPlayer() {
-  musicFrame.src = "";
+  backgroundMusic.pause();
   musicPlayer.hidden = true;
   musicToggle.setAttribute("aria-pressed", "false");
-  musicToggle.querySelector(".music-label").textContent = "Música tema";
+  musicToggle.querySelector(".music-label").textContent = "Música";
 }
 
 async function sendToGuestList(submission) {
