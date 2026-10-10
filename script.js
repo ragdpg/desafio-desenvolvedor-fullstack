@@ -315,7 +315,7 @@ function downloadCalendarEvent() {
     "DTEND:20261120T020000Z",
     "SUMMARY:Aniversário do João Rafael",
     "DESCRIPTION:Uma aventura com tema Toy Story!",
-    "LOCATION:Buffet Magic Time\\, Av. Costa e Silva\\, Boqueirão\\, Praia Grande - SP",
+    "LOCATION:Buffet Magic Time\\, Av. Presidente Costa e Silva\\, 1248\\, Boqueirão\\, Praia Grande - SP",
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\r\n");
