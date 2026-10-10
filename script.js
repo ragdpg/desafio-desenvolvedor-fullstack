@@ -11,7 +11,17 @@ const companionCount = document.querySelector("#companionCount");
 const companions = document.querySelector("#companions");
 const guestType = document.querySelector("#guestType");
 const guestAgeGroup = document.querySelector("#guestAgeGroup");
+const musicToggle = document.querySelector("#musicToggle");
 const toast = document.querySelector("#toast");
+let audioContext;
+let musicTimer;
+
+const MELODY = [
+  523.25, 659.25, 783.99, 659.25,
+  587.33, 698.46, 880.0, 698.46,
+  659.25, 783.99, 987.77, 783.99,
+  587.33, 659.25, 523.25, null,
+];
 
 function updateCountdown() {
   const distance = Math.max(0, PARTY_DATE.getTime() - Date.now());
@@ -195,6 +205,53 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 3800);
 }
 
+function playToyNote(frequency, start, duration) {
+  if (!frequency || !audioContext) return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  oscillator.type = "triangle";
+  oscillator.frequency.value = frequency;
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.exponentialRampToValueAtTime(0.09, start + 0.025);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start(start);
+  oscillator.stop(start + duration + 0.03);
+}
+
+function scheduleMelody() {
+  const start = audioContext.currentTime + 0.06;
+  MELODY.forEach((frequency, index) => {
+    playToyNote(frequency, start + index * 0.34, 0.28);
+  });
+}
+
+async function startMusic() {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) {
+    showToast("Seu navegador não oferece suporte à música.");
+    return;
+  }
+
+  audioContext = new AudioContext();
+  await audioContext.resume();
+  scheduleMelody();
+  musicTimer = window.setInterval(scheduleMelody, MELODY.length * 340);
+  musicToggle.setAttribute("aria-pressed", "true");
+  musicToggle.querySelector(".music-label").textContent = "Pausar música";
+  showToast("Melodia da aventura ligada ♪");
+}
+
+async function stopMusic() {
+  window.clearInterval(musicTimer);
+  if (audioContext) await audioContext.close();
+  audioContext = undefined;
+  musicToggle.setAttribute("aria-pressed", "false");
+  musicToggle.querySelector(".music-label").textContent = "Ouvir música";
+}
+
 async function sendToGuestList(submission) {
   if (!CONFIG.appsScriptUrl) return false;
 
@@ -314,6 +371,13 @@ form.addEventListener("submit", async (event) => {
 });
 
 document.querySelector("#calendarButton").addEventListener("click", downloadCalendarEvent);
+musicToggle.addEventListener("click", () => {
+  if (musicToggle.getAttribute("aria-pressed") === "true") {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+});
 
 const observer = new IntersectionObserver(
   (entries) => {

@@ -80,6 +80,12 @@ a {
   padding-top: 28px;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .mini-logo {
   display: grid;
   width: 52px;
@@ -94,6 +100,37 @@ a {
   font-size: 22px;
   font-weight: 800;
   transform: rotate(-4deg);
+}
+
+.music-toggle {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 100px;
+  color: var(--white);
+  background: rgba(255,255,255,.13);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
+.music-icon {
+  display: grid;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--yellow);
+  font-size: 16px;
+}
+
+.music-toggle[aria-pressed="true"] .music-icon {
+  animation: musicPulse .8s ease-in-out infinite alternate;
 }
 
 .nav-cta {
@@ -1226,6 +1263,10 @@ footer {
   to { left: calc(100% + 80px); }
 }
 
+@keyframes musicPulse {
+  to { transform: scale(1.14) rotate(8deg); }
+}
+
 @media (max-width: 900px) {
   .hero-content {
     grid-template-columns: 1fr;
@@ -1302,6 +1343,20 @@ footer {
   .nav-cta {
     padding: 10px 14px;
     font-size: 12px;
+  }
+
+  .music-toggle {
+    width: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .music-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
   }
 
   .hero-content {
