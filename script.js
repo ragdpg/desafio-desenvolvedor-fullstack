@@ -1,6 +1,6 @@
 const PARTY_DATE = new Date("2026-11-19T19:00:00-03:00");
 const CONFIG = {
-  whatsappNumber: "5513981828269",
+  whatsappNumber: "5513982056608",
   appsScriptUrl: "",
 };
 
@@ -297,7 +297,7 @@ async function sendConfirmation(submission) {
 
   try {
     await navigator.clipboard.writeText(message);
-    showToast("Mensagem copiada! Envie-a para (13) 98182-8269.");
+    showToast("Mensagem copiada! Envie-a para (13) 98205-6608.");
   } catch {
     showToast("Não foi possível abrir o WhatsApp. Tente novamente.");
   }
