@@ -42,7 +42,7 @@
         <div class="nav-actions">
           <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">
             <span class="music-icon" aria-hidden="true">♪</span>
-            <span class="music-label">Ouvir música</span>
+            <span class="music-label">Música tema</span>
           </button>
           <a class="nav-cta" href="#confirmar">Confirmar presença</a>
         </div>
@@ -74,13 +74,13 @@
           <div class="orbit orbit-two"></div>
           <figure class="birthday-photo">
             <img
-              src="./joao-aventura-brinquedos.jpg"
-              alt="João Rafael como um aventureiro em um quarto cheio de brinquedos"
-              width="864"
-              height="1152"
+              src="./joao-rafael.jpg"
+              alt="João Rafael sorrindo enquanto desenha"
+              width="900"
+              height="1198"
               fetchpriority="high"
             />
-            <figcaption>João no mundo dos brinquedos!</figcaption>
+            <figcaption>Nosso aniversariante!</figcaption>
           </figure>
           <div class="rocket">
             <span class="rocket-window"></span>
@@ -168,6 +168,49 @@
               <i>:</i>
               <div><strong id="seconds">--</strong><span>seg</span></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-section" aria-labelledby="galleryTitle">
+        <div class="container">
+          <div class="section-heading reveal-on-scroll">
+            <p class="eyebrow eyebrow-dark">Ao infinito e além</p>
+            <h2 id="galleryTitle">Os brinquedos já estão prontos!</h2>
+            <p>Uma turma inteira espera você para celebrar os 5 anos do João.</p>
+          </div>
+
+          <div class="adventure-gallery">
+            <figure class="gallery-card gallery-card-wide reveal-on-scroll">
+              <img
+                src="./turma-aventura-brinquedos.jpg"
+                alt="Cowboy, patrulheiro espacial e dinossauro em uma festa de brinquedos"
+                width="1024"
+                height="576"
+                loading="lazy"
+              />
+              <figcaption>Uma missão cheia de amigos</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card-portrait reveal-on-scroll">
+              <img
+                src="./joao-aventura-brinquedos.jpg"
+                alt="João Rafael ilustrado como o menino de uma aventura de brinquedos"
+                width="864"
+                height="1152"
+                loading="lazy"
+              />
+              <figcaption>João, o dono dessa aventura</figcaption>
+            </figure>
+            <figure class="gallery-card reveal-on-scroll">
+              <img
+                src="./festa-galaxia-brinquedos.jpg"
+                alt="Alienígenas, dinossauro e cachorro-mola em uma festa espacial"
+                width="1024"
+                height="576"
+                loading="lazy"
+              />
+              <figcaption>Direto da galáxia para a festa</figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -272,6 +315,24 @@
         <span>Feito para uma noite inesquecível ✦</span>
       </div>
     </footer>
+
+    <aside class="music-player" id="musicPlayer" hidden aria-label="Player da música tema">
+      <div class="music-player-head">
+        <div>
+          <small>Música tema oficial</small>
+          <strong>Você tem um amigo em mim</strong>
+        </div>
+        <button id="closeMusic" type="button" aria-label="Fechar música">×</button>
+      </div>
+      <iframe
+        id="musicFrame"
+        title="Randy Newman — You've Got a Friend in Me"
+        data-src="https://www.youtube-nocookie.com/embed/DNZUKm0ApEM?autoplay=1&playsinline=1&rel=0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </aside>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
