@@ -212,19 +212,26 @@
             <div id="partyFields">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="guestAge">Sua idade</label>
-                  <input id="guestAge" name="guestAge" type="number" min="0" max="120" placeholder="Idade" required />
-                </div>
-                <div class="form-group">
-                  <label for="companionCount">Acompanhantes</label>
-                  <select id="companionCount" name="companionCount">
-                    <option value="0">Vou sozinho(a)</option>
-                    <option value="1">1 acompanhante</option>
-                    <option value="2">2 acompanhantes</option>
-                    <option value="3">3 acompanhantes</option>
-                    <option value="4">4 acompanhantes</option>
+                  <label for="guestType">Você é</label>
+                  <select id="guestType" name="guestType">
+                    <option value="adulto">Adulto</option>
+                    <option value="crianca">Criança</option>
                   </select>
                 </div>
+                <div class="form-group" id="guestAgeGroup" hidden>
+                  <label for="guestAge">Idade da criança</label>
+                  <input id="guestAge" name="guestAge" type="number" min="0" max="17" placeholder="Idade" disabled />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="companionCount">Quem vai com você?</label>
+                <select id="companionCount" name="companionCount">
+                  <option value="0">Sem acompanhantes</option>
+                  <option value="1">1 acompanhante</option>
+                  <option value="2">2 acompanhantes</option>
+                  <option value="3">3 acompanhantes</option>
+                  <option value="4">4 acompanhantes</option>
+                </select>
               </div>
               <div class="companions" id="companions" aria-live="polite"></div>
             </div>
@@ -234,7 +241,7 @@
               <span aria-hidden="true">🚀</span>
             </button>
             <p class="form-note">
-              Abriremos seu menu de compartilhamento ou WhatsApp para enviar a resposta ao responsável.
+              Sua resposta será enviada ao responsável pelo WhatsApp.
             </p>
           </form>
         </div>

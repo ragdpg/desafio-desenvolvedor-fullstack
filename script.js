@@ -1,10 +1,16 @@
 const PARTY_DATE = new Date("2026-11-19T19:00:00-03:00");
+const CONFIG = {
+  whatsappNumber: "5513981828269",
+  appsScriptUrl: "",
+};
 
 const form = document.querySelector("#rsvpForm");
 const attendanceInputs = [...document.querySelectorAll('input[name="attendance"]')];
 const partyFields = document.querySelector("#partyFields");
 const companionCount = document.querySelector("#companionCount");
 const companions = document.querySelector("#companions");
+const guestType = document.querySelector("#guestType");
+const guestAgeGroup = document.querySelector("#guestAgeGroup");
 const toast = document.querySelector("#toast");
 
 function updateCountdown() {
@@ -40,22 +46,49 @@ function renderCompanions(count, saved = []) {
         />
       </div>
       <div class="form-group">
-        <label for="companionAge${index}">Idade</label>
+        <label for="companionType${index}">É adulto ou criança?</label>
+        <select
+          id="companionType${index}"
+          name="companionType${index}"
+          class="person-type"
+        >
+          <option value="adulto" ${saved[index]?.type !== "crianca" ? "selected" : ""}>Adulto</option>
+          <option value="crianca" ${saved[index]?.type === "crianca" ? "selected" : ""}>Criança</option>
+        </select>
+      </div>
+      <div class="form-group companion-age" ${saved[index]?.type === "crianca" ? "" : "hidden"}>
+        <label for="companionAge${index}">Idade da criança</label>
         <input
           id="companionAge${index}"
           name="companionAge${index}"
           type="number"
           min="0"
-          max="120"
+          max="17"
           placeholder="Idade"
           value="${escapeHtml(saved[index]?.age || "")}"
-          required
+          ${saved[index]?.type === "crianca" ? "required" : "disabled"}
         />
       </div>
       <span class="companion-number" aria-hidden="true">${index + 1}</span>
     `;
     companions.appendChild(row);
   }
+}
+
+function updateAgeField(select, group) {
+  const isChild = select.value === "crianca";
+  const input = group.querySelector('input[type="number"]');
+  group.hidden = !isChild;
+  input.disabled = !isChild || selectedAttendance() !== "sim";
+  input.required = isChild;
+  if (!isChild) input.value = "";
+}
+
+function updateAllAgeFields() {
+  updateAgeField(guestType, guestAgeGroup);
+  document.querySelectorAll(".person-type").forEach((select) => {
+    updateAgeField(select, select.closest(".companion-row").querySelector(".companion-age"));
+  });
 }
 
 function escapeHtml(value) {
@@ -77,12 +110,14 @@ function updateAttendance() {
   partyFields.querySelectorAll("input, select").forEach((field) => {
     field.disabled = !attending;
   });
+  updateAllAgeFields();
 }
 
 function collectCompanions() {
   const count = Number(companionCount.value);
   return Array.from({ length: count }, (_, index) => ({
     name: document.querySelector(`#companionName${index}`)?.value.trim() || "",
+    type: document.querySelector(`#companionType${index}`)?.value || "adulto",
     age: document.querySelector(`#companionAge${index}`)?.value || "",
   }));
 }
@@ -91,6 +126,7 @@ function saveDraft() {
   const draft = {
     attendance: selectedAttendance(),
     guestName: form.guestName.value,
+    guestType: form.guestType.value,
     guestAge: form.guestAge.value,
     companionCount: companionCount.value,
     companions: collectCompanions(),
@@ -108,30 +144,48 @@ function restoreDraft() {
     );
     if (attendance) attendance.checked = true;
     form.guestName.value = draft.guestName || "";
+    form.guestType.value = draft.guestType || "adulto";
     form.guestAge.value = draft.guestAge || "";
     companionCount.value = draft.companionCount || "0";
     renderCompanions(Number(companionCount.value), draft.companions);
     updateAttendance();
+    updateAllAgeFields();
   } catch {
     localStorage.removeItem("joao-rafael-rsvp");
   }
 }
 
-function buildConfirmation() {
-  const name = form.guestName.value.trim();
-  if (selectedAttendance() === "nao") {
-    return `Olá! Aqui é ${name}. Infelizmente não poderei comparecer ao aniversário do João Rafael no dia 19/11. Desejo uma festa incrível! 💛`;
+function collectSubmission() {
+  return {
+    attendance: selectedAttendance(),
+    guest: {
+      name: form.guestName.value.trim(),
+      type: form.guestType.value,
+      age: form.guestType.value === "crianca" ? form.guestAge.value : "",
+    },
+    companions: selectedAttendance() === "sim" ? collectCompanions() : [],
+  };
+}
+
+function personDescription(person) {
+  if (person.type === "crianca") {
+    return `${person.name} — criança, ${person.age} ${Number(person.age) === 1 ? "ano" : "anos"}`;
+  }
+  return `${person.name} — adulto`;
+}
+
+function buildConfirmation(submission) {
+  if (submission.attendance === "nao") {
+    return `Olá! Aqui é ${submission.guest.name}. Infelizmente não poderei comparecer ao aniversário do João Rafael no dia 19/11. Desejo uma festa incrível! 💛`;
   }
 
-  const guestAge = form.guestAge.value;
-  const party = collectCompanions();
-  const partyText = party.length
-    ? `\n\nMeus acompanhantes:\n${party
-        .map((person) => `• ${person.name}, ${person.age} ${Number(person.age) === 1 ? "ano" : "anos"}`)
+  const partyText = submission.companions.length
+    ? `\n\nAcompanhantes:\n${submission.companions
+        .map((person) => `• ${personDescription(person)}`)
         .join("\n")}`
-    : "\n\nIrei sem acompanhantes.";
+    : "\n\nSem acompanhantes.";
 
-  return `Olá! Confirmo minha presença no aniversário do João Rafael! 🚀\n\nConvidado(a): ${name}, ${guestAge} ${Number(guestAge) === 1 ? "ano" : "anos"}${partyText}\n\nNos vemos no dia 19/11, às 19h, no Buffet Magic Time!`;
+  return `Olá! Confirmo minha presença no aniversário do João Rafael! 🚀\n\nConvidado(a): ${personDescription(submission.guest)}${partyText}\n\nNos vemos no dia 19/11, às 19h, no Buffet Magic Time!`;
 }
 
 function showToast(message) {
@@ -141,7 +195,36 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 3800);
 }
 
-async function shareConfirmation(message) {
+async function sendToGuestList(submission) {
+  if (!CONFIG.appsScriptUrl) return false;
+
+  try {
+    await fetch(CONFIG.appsScriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(submission),
+    });
+    localStorage.removeItem("joao-rafael-rsvp");
+    showToast("Presença registrada na lista. Obrigado!");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function sendConfirmation(submission) {
+  const saved = await sendToGuestList(submission);
+  if (saved) return;
+
+  const message = buildConfirmation(submission);
+  const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  if (popup) {
+    showToast("Envie a mensagem no WhatsApp para concluir.");
+    return;
+  }
+
   if (navigator.share) {
     try {
       await navigator.share({
@@ -155,13 +238,11 @@ async function shareConfirmation(message) {
     }
   }
 
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-  const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  if (popup) {
-    showToast("Escolha o responsável no WhatsApp para concluir.");
-  } else {
+  try {
     await navigator.clipboard.writeText(message);
-    showToast("Mensagem copiada! Envie-a ao responsável pela festa.");
+    showToast("Mensagem copiada! Envie-a para (13) 98182-8269.");
+  } catch {
+    showToast("Não foi possível abrir o WhatsApp. Tente novamente.");
   }
 }
 
@@ -193,6 +274,21 @@ function downloadCalendarEvent() {
 companionCount.addEventListener("change", () => {
   const current = collectCompanions();
   renderCompanions(Number(companionCount.value), current);
+  updateAllAgeFields();
+  saveDraft();
+});
+
+guestType.addEventListener("change", () => {
+  updateAgeField(guestType, guestAgeGroup);
+  saveDraft();
+});
+
+companions.addEventListener("change", (event) => {
+  if (!event.target.matches(".person-type")) return;
+  updateAgeField(
+    event.target,
+    event.target.closest(".companion-row").querySelector(".companion-age"),
+  );
   saveDraft();
 });
 
@@ -207,8 +303,14 @@ form.addEventListener("input", saveDraft);
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
   saveDraft();
-  await shareConfirmation(buildConfirmation());
+  try {
+    await sendConfirmation(collectSubmission());
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 document.querySelector("#calendarButton").addEventListener("click", downloadCalendarEvent);
