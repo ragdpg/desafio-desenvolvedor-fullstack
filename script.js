@@ -383,6 +383,11 @@ musicToggle.addEventListener("click", () => {
 });
 closeMusic.addEventListener("click", closeMusicPlayer);
 openGate.addEventListener("click", revealStage);
+gate.addEventListener("click", (event) => {
+  if (event.target.closest("#openGate") || event.target === gate) {
+    revealStage();
+  }
+});
 
 if (sessionStorage.getItem("joao-invite-opened") === "1") {
   gate.hidden = true;

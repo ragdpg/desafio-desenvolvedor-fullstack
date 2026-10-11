@@ -92,6 +92,7 @@ p {
 .gate-sky {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(circle at 18% 22%, rgba(255,255,255,.55) 0 42px, transparent 43px),
     radial-gradient(circle at 72% 18%, rgba(255,255,255,.4) 0 56px, transparent 57px),
@@ -102,7 +103,8 @@ p {
 
 .gate-box {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  pointer-events: auto;
   width: min(480px, 100%);
   padding: 42px 28px 34px;
   border: 4px solid rgba(255,255,255,.55);
@@ -145,6 +147,8 @@ p {
 
 .gate-button,
 .cta {
+  position: relative;
+  z-index: 3;
   display: inline-flex;
   min-height: 56px;
   align-items: center;
