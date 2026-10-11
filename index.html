@@ -25,17 +25,15 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
-    <div class="gate" id="gate" aria-hidden="false">
-      <div class="gate-sky" aria-hidden="true"></div>
-      <div class="gate-box">
-        <p class="gate-kicker">Um convite especial</p>
-        <h2>Há uma aventura<br />esperando por você</h2>
-        <p class="gate-text">Toque para abrir o quarto dos brinquedos do João Rafael.</p>
-        <button class="gate-button" id="openGate" type="button">
-          <span>Abrir convite</span>
-        </button>
-      </div>
-    </div>
+    <button class="gate" id="openGate" type="button" aria-label="Abrir convite do João Rafael">
+      <span class="gate-sky" aria-hidden="true"></span>
+      <span class="gate-box">
+        <span class="gate-kicker">Um convite especial</span>
+        <span class="gate-title">Há uma aventura<br />esperando por você</span>
+        <span class="gate-text">Toque para abrir o quarto dos brinquedos do João Rafael.</span>
+        <span class="gate-button">Abrir convite</span>
+      </span>
+    </button>
 
     <div class="stage" id="stage" hidden>
       <button class="float-music" id="musicToggle" type="button" aria-pressed="false" aria-label="Tocar música">

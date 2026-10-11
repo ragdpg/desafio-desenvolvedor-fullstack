@@ -5,9 +5,8 @@ const CONFIG = {
     "https://script.google.com/macros/s/AKfycbzXYo44mowQqAhw6DCliavxXbMsa_E-H52g6ujNlAAkmcYqA3BJzTJZZFzpbMMYnCgL1Q/exec",
 };
 
-const gate = document.querySelector("#gate");
-const stage = document.querySelector("#stage");
 const openGate = document.querySelector("#openGate");
+const stage = document.querySelector("#stage");
 const form = document.querySelector("#rsvpForm");
 const attendanceInputs = [...document.querySelectorAll('input[name="attendance"]')];
 const partyFields = document.querySelector("#partyFields");
@@ -305,11 +304,11 @@ function downloadCalendarEvent() {
 function revealStage() {
   stage.hidden = false;
   requestAnimationFrame(() => stage.classList.add("is-visible"));
-  gate.classList.add("is-open");
-  gate.setAttribute("aria-hidden", "true");
+  openGate.classList.add("is-open");
+  openGate.setAttribute("aria-hidden", "true");
   document.body.classList.remove("is-locked");
   window.setTimeout(() => {
-    gate.hidden = true;
+    openGate.hidden = true;
   }, 750);
   sessionStorage.setItem("joao-invite-opened", "1");
 }
@@ -383,15 +382,16 @@ musicToggle.addEventListener("click", () => {
 });
 closeMusic.addEventListener("click", closeMusicPlayer);
 openGate.addEventListener("click", revealStage);
-gate.addEventListener("click", (event) => {
-  if (event.target.closest("#openGate") || event.target === gate) {
+openGate.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
     revealStage();
   }
 });
 
 if (sessionStorage.getItem("joao-invite-opened") === "1") {
-  gate.hidden = true;
-  gate.classList.add("is-open");
+  openGate.hidden = true;
+  openGate.classList.add("is-open");
   stage.hidden = false;
   stage.classList.add("is-visible");
   document.body.classList.remove("is-locked");

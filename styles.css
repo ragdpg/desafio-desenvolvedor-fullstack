@@ -78,8 +78,14 @@ p {
   z-index: 80;
   display: grid;
   place-items: center;
+  width: 100%;
   padding: 24px;
+  border: 0;
   color: var(--white);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
   transition: opacity .7s ease, visibility .7s ease;
 }
 
@@ -131,9 +137,12 @@ p {
   text-transform: uppercase;
 }
 
-.gate-box h2 {
+.gate-title {
+  display: block;
   margin-bottom: 14px;
+  font-family: var(--font-display);
   font-size: clamp(40px, 9vw, 58px);
+  line-height: .95;
   text-shadow: 0 4px 0 rgba(13, 53, 88, .35);
 }
 
@@ -165,13 +174,13 @@ p {
   transition: transform .18s ease, box-shadow .18s ease;
 }
 
-.gate-button:hover,
+.gate:hover .gate-button,
 .cta:hover {
   transform: translateY(-3px);
   box-shadow: 0 11px 0 var(--yellow-deep);
 }
 
-.gate-button:active,
+.gate:active .gate-button,
 .cta:active {
   transform: translateY(2px);
   box-shadow: 0 4px 0 var(--yellow-deep);
