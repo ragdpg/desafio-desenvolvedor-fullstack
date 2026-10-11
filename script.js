@@ -5,6 +5,9 @@ const CONFIG = {
     "https://script.google.com/macros/s/AKfycbzXYo44mowQqAhw6DCliavxXbMsa_E-H52g6ujNlAAkmcYqA3BJzTJZZFzpbMMYnCgL1Q/exec",
 };
 
+const gate = document.querySelector("#gate");
+const stage = document.querySelector("#stage");
+const openGate = document.querySelector("#openGate");
 const form = document.querySelector("#rsvpForm");
 const attendanceInputs = [...document.querySelectorAll('input[name="attendance"]')];
 const partyFields = document.querySelector("#partyFields");
@@ -18,6 +21,8 @@ const backgroundMusic = document.querySelector("#backgroundMusic");
 const closeMusic = document.querySelector("#closeMusic");
 const toast = document.querySelector("#toast");
 
+document.body.classList.add("is-locked");
+
 function updateCountdown() {
   const distance = Math.max(0, PARTY_DATE.getTime() - Date.now());
   const values = {
@@ -28,7 +33,8 @@ function updateCountdown() {
   };
 
   Object.entries(values).forEach(([id, value]) => {
-    document.querySelector(`#${id}`).textContent = String(value).padStart(2, "0");
+    const node = document.querySelector(`#${id}`);
+    if (node) node.textContent = String(value).padStart(2, "0");
   });
 }
 
@@ -181,7 +187,7 @@ function personDescription(person) {
 
 function buildConfirmation(submission) {
   if (submission.attendance === "nao") {
-    return `Olá! Aqui é ${submission.guest.name}. Infelizmente não poderei comparecer ao aniversário do João Rafael no dia 19/11. Desejo uma festa incrível! 💛`;
+    return `Olá! Aqui é ${submission.guest.name}. Infelizmente não poderei comparecer ao aniversário do João Rafael no dia 19/11. Desejo uma festa incrível!`;
   }
 
   const partyText = submission.companions.length
@@ -190,7 +196,7 @@ function buildConfirmation(submission) {
         .join("\n")}`
     : "\n\nSem acompanhantes.";
 
-  return `Olá! Confirmo minha presença no aniversário do João Rafael! 🚀\n\nConvidado(a): ${personDescription(submission.guest)}${partyText}\n\nNos vemos no dia 19/11, às 19h, no Buffet Magic Time!`;
+  return `Olá! Confirmo minha presença no aniversário do João Rafael!\n\nConvidado(a): ${personDescription(submission.guest)}${partyText}\n\nNos vemos no dia 19/11, às 19h, no Buffet Magic Time!`;
 }
 
 function showToast(message) {
@@ -206,8 +212,8 @@ async function openMusicPlayer() {
     await backgroundMusic.play();
     musicPlayer.hidden = false;
     musicToggle.setAttribute("aria-pressed", "true");
-    musicToggle.querySelector(".music-label").textContent = "Pausar música";
-    showToast("Trilha da aventura ligada ♪");
+    musicToggle.querySelector(".music-label").textContent = "Pausar";
+    showToast("Trilha da aventura ligada");
   } catch {
     showToast("Toque novamente para iniciar a música.");
   }
@@ -296,6 +302,35 @@ function downloadCalendarEvent() {
   showToast("Evento adicionado ao seu download.");
 }
 
+function revealStage() {
+  stage.hidden = false;
+  requestAnimationFrame(() => stage.classList.add("is-visible"));
+  gate.classList.add("is-open");
+  gate.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("is-locked");
+  window.setTimeout(() => {
+    gate.hidden = true;
+  }, 750);
+  sessionStorage.setItem("joao-invite-opened", "1");
+}
+
+function setupStoryRail() {
+  const panels = [...document.querySelectorAll(".story-panel")];
+  if (!panels.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-active", entry.isIntersecting);
+      });
+    },
+    { root: document.querySelector(".story-rail"), threshold: 0.55 },
+  );
+
+  panels.forEach((panel) => observer.observe(panel));
+  panels[0]?.classList.add("is-active");
+}
+
 companionCount.addEventListener("change", () => {
   const current = collectCompanions();
   renderCompanions(Number(companionCount.value), current);
@@ -347,24 +382,17 @@ musicToggle.addEventListener("click", () => {
   }
 });
 closeMusic.addEventListener("click", closeMusicPlayer);
+openGate.addEventListener("click", revealStage);
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 },
-);
+if (sessionStorage.getItem("joao-invite-opened") === "1") {
+  gate.hidden = true;
+  gate.classList.add("is-open");
+  stage.hidden = false;
+  stage.classList.add("is-visible");
+  document.body.classList.remove("is-locked");
+}
 
-document.querySelectorAll(".reveal-on-scroll").forEach((element, index) => {
-  element.style.transitionDelay = `${Math.min(index % 3, 2) * 80}ms`;
-  observer.observe(element);
-});
-
+setupStoryRail();
 restoreDraft();
 updateAttendance();
 updateCountdown();
