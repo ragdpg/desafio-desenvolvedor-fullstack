@@ -1,7 +1,8 @@
 const PARTY_DATE = new Date("2026-11-19T19:00:00-03:00");
 const CONFIG = {
   whatsappNumber: "5513982056608",
-  appsScriptUrl: "",
+  appsScriptUrl:
+    "https://script.google.com/macros/s/AKfycbzXYo44mowQqAhw6DCliavxXbMsa_E-H52g6ujNlAAkmcYqA3BJzTJZZFzpbMMYnCgL1Q/exec",
 };
 
 const form = document.querySelector("#rsvpForm");
