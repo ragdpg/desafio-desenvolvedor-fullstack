@@ -204,9 +204,10 @@ p {
 
 .float-music {
   position: fixed;
-  z-index: 40;
+  z-index: 90;
   top: 18px;
   right: 18px;
+  pointer-events: auto;
   display: inline-flex;
   min-height: 46px;
   align-items: center;
