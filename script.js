@@ -370,9 +370,7 @@ function revealStage() {
   sessionStorage.setItem("joao-invite-opened", "1");
 }
 
-function setupStoryRail() {
-  // Grade estática — sem carrossel.
-}
+function setupStoryRail() {}
 
 companionCount.addEventListener("change", () => {
   const current = collectCompanions();
