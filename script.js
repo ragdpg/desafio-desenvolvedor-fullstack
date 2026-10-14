@@ -371,20 +371,7 @@ function revealStage() {
 }
 
 function setupStoryRail() {
-  const panels = [...document.querySelectorAll(".story-panel")];
-  if (!panels.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        entry.target.classList.toggle("is-active", entry.isIntersecting);
-      });
-    },
-    { root: document.querySelector(".story-rail"), threshold: 0.55 },
-  );
-
-  panels.forEach((panel) => observer.observe(panel));
-  panels[0]?.classList.add("is-active");
+  // Grade estática — sem carrossel.
 }
 
 companionCount.addEventListener("change", () => {
