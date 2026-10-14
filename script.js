@@ -294,20 +294,43 @@ function buildInviteMessage() {
   ].join("\n");
 }
 
+async function getInviteImageFile() {
+  const response = await fetch("./convite-whatsapp.jpg");
+  const blob = await response.blob();
+  return new File([blob], "convite-joao-rafael.jpg", { type: "image/jpeg" });
+}
+
+function downloadInviteImage() {
+  const link = document.createElement("a");
+  link.href = "./convite-whatsapp.jpg";
+  link.download = "convite-joao-rafael.jpg";
+  link.click();
+}
+
 async function shareInviteOnWhatsApp() {
   const message = buildInviteMessage();
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-  const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  if (popup) {
-    showToast("Escolha o contato no WhatsApp.");
-    return;
-  }
+
   try {
-    await navigator.clipboard.writeText(message);
-    showToast("Texto do convite copiado!");
-  } catch {
-    showToast("Não foi possível abrir o WhatsApp.");
+    const file = await getInviteImageFile();
+    if (navigator.canShare?.({ files: [file], text: message })) {
+      await navigator.share({
+        files: [file],
+        title: "Convite — João Rafael",
+        text: message,
+      });
+      showToast("Convite compartilhado!");
+      return;
+    }
+  } catch (error) {
+    if (error?.name === "AbortError") return;
   }
+
+  downloadInviteImage();
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.setTimeout(() => {
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  }, 350);
+  showToast("Imagem baixada! Anexe-a no WhatsApp com o link.");
 }
 
 function downloadCalendarEvent() {

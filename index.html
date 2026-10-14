@@ -8,11 +8,15 @@
       name="description"
       content="Convite para o aniversário de João Rafael — 19 de novembro de 2026, no Buffet Magic Time."
     />
-    <meta property="og:title" content="João Rafael — Uma aventura está chegando!" />
+    <meta property="og:title" content="João Rafael — Você está convidado!" />
     <meta
       property="og:description"
-      content="Entre no quarto dos brinquedos e confirme sua presença na festa de 5 anos."
+      content="Aniversário de 5 anos · 19/11/2026 · Buffet Magic Time, Praia Grande. Confirme sua presença!"
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./convite-whatsapp.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>João Rafael | Convite de Aniversário</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,7 +35,7 @@
         <span class="gate-kicker">Um convite especial</span>
         <span class="gate-title">Há uma aventura<br />esperando por você</span>
         <span class="gate-text">Toque para abrir o quarto dos brinquedos do João Rafael.</span>
-        <span class="gate-button">Abrir convite</span>
+        <span class="gate-button" role="presentation">Abrir convite</span>
       </span>
     </button>
 
@@ -43,13 +47,13 @@
 
       <header class="hero" id="inicio">
         <div class="hero-media">
-            <img
-              src="./joao-rafael.jpg"
-              alt="João Rafael vestido de cowboy na festa Toy Story"
-              width="720"
-              height="1112"
-              fetchpriority="high"
-            />
+          <img
+            src="./joao-hero.jpg"
+            alt="João Rafael vestido de cowboy na festa Toy Story"
+            width="520"
+            height="720"
+            fetchpriority="high"
+          />
         </div>
         <div class="hero-veil" aria-hidden="true"></div>
         <div class="hero-content">
@@ -150,9 +154,19 @@
               <div><strong id="seconds">--</strong><span>seg</span></div>
             </div>
 
+            <figure class="invite-card">
+              <img
+                src="./convite-whatsapp.jpg"
+                alt="Cartão de convite do João Rafael para WhatsApp"
+                width="720"
+                height="1280"
+                loading="lazy"
+              />
+            </figure>
             <button class="cta share-invite" id="shareInvite" type="button">
-              Compartilhar no WhatsApp
+              Enviar imagem no WhatsApp
             </button>
+            <p class="share-hint">Envia a imagem do convite + o link de confirmação.</p>
           </div>
         </section>
 
