@@ -1,7 +1,6 @@
 const PARTY_DATE = new Date("2026-11-19T19:00:00-03:00");
 const CONFIG = {
   whatsappNumber: "5513982056608",
-  siteUrl: `${window.location.origin}${window.location.pathname.replace(/\/?$/, "/")}`,
   appsScriptUrl:
     "https://script.google.com/macros/s/AKfycbzXYo44mowQqAhw6DCliavxXbMsa_E-H52g6ujNlAAkmcYqA3BJzTJZZFzpbMMYnCgL1Q/exec",
 };
@@ -277,47 +276,6 @@ async function sendConfirmation(submission) {
   }
 }
 
-function buildInviteMessage() {
-  const inviteImageUrl = new URL("convite-whatsapp.jpg", CONFIG.siteUrl).href;
-  return [
-    "Você está convidado!",
-    "",
-    "Aniversário de 5 anos do João Rafael Bitencourt Domingues",
-    "Tema: Toy Story",
-    "",
-    "Quando: 19 de novembro de 2026, a partir das 19h",
-    "Onde: Buffet Magic Time",
-    "Av. Presidente Costa e Silva, 1248",
-    "Boqueirão — Praia Grande/SP",
-    "",
-    "Confirme sua presença e quem vai com você aqui:",
-    CONFIG.siteUrl,
-    "",
-    "Imagem do convite:",
-    inviteImageUrl,
-  ].join("\n");
-}
-
-async function shareInviteOnWhatsApp() {
-  const message = buildInviteMessage();
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-
-  // WhatsApp costuma descartar o texto quando enviamos só o arquivo.
-  // Abrimos a conversa com texto + link de confirmação (+ link da imagem).
-  const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  if (popup) {
-    showToast("Mensagem pronta com o link de confirmação!");
-    return;
-  }
-
-  try {
-    await navigator.clipboard.writeText(message);
-    showToast("Texto copiado! Cole no WhatsApp.");
-  } catch {
-    showToast("Não foi possível abrir o WhatsApp.");
-  }
-}
-
 function downloadCalendarEvent() {
   const calendar = [
     "BEGIN:VCALENDAR",
@@ -400,7 +358,6 @@ form.addEventListener("submit", async (event) => {
 });
 
 document.querySelector("#calendarButton").addEventListener("click", downloadCalendarEvent);
-document.querySelector("#shareInvite").addEventListener("click", shareInviteOnWhatsApp);
 musicToggle.addEventListener("click", () => {
   if (musicToggle.getAttribute("aria-pressed") === "true") {
     closeMusicPlayer();
