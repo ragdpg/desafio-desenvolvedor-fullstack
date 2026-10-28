@@ -409,8 +409,8 @@ p {
 
 .mosaic-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1.35fr .9fr;
+  grid-template-rows: minmax(260px, 32vh) minmax(260px, 32vh);
   gap: 8px;
   padding: 8px;
   border: 6px solid var(--white);
@@ -423,7 +423,6 @@ p {
 .mosaic-cell {
   position: relative;
   margin: 0;
-  min-height: 180px;
   border-radius: 18px;
   overflow: hidden;
   background: #d9eefc;
@@ -433,10 +432,26 @@ p {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 180px;
-  max-height: 240px;
   object-fit: cover;
-  object-position: center;
+}
+
+.mosaic-cell img.fit-face {
+  object-fit: contain;
+  object-position: center top;
+  background: linear-gradient(180deg, #7ec4ef, #fff8eb);
+}
+
+.mosaic-cell img.fit-scene {
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.mosaic-portrait {
+  min-height: 260px;
+}
+
+.mosaic-wide {
+  min-height: 260px;
 }
 
 /* —— Mission —— */
@@ -997,15 +1012,16 @@ footer {
   }
 
   .mosaic-card {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(200px, 28vh) minmax(200px, 28vh);
     gap: 6px;
     padding: 6px;
     border-width: 4px;
   }
 
-  .mosaic-cell,
-  .mosaic-cell img {
-    min-height: 140px;
-    max-height: 180px;
+  .mosaic-portrait,
+  .mosaic-wide {
+    min-height: 200px;
   }
 
   footer {
