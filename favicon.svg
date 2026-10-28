@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="18" fill="#ffd737"/>
+  <path d="M8 45h48v7H8z" fill="#e8443a"/>
+  <text x="32" y="42" text-anchor="middle" fill="#092f58" font-family="Arial,sans-serif" font-size="30" font-weight="900">JR</text>
+  <path d="m52 8 1.8 4.2L58 14l-4.2 1.8L52 20l-1.8-4.2L46 14l4.2-1.8z" fill="#fff"/>
+</svg>

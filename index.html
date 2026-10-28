@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4BA3D9" />
+    <meta
+      name="description"
+      content="Convite para o aniversário de João Rafael — 19 de novembro de 2026, no Buffet Magic Time."
+    />
+    <meta property="og:title" content="João Rafael — Você está convidado!" />
+    <meta
+      property="og:description"
+      content="Aniversário de 5 anos · 19/11/2026 · Buffet Magic Time, Praia Grande. Confirme sua presença!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://8c1e69abc9ee4e0f.flypod.page/" />
+    <meta property="og:image" content="https://8c1e69abc9ee4e0f.flypod.page/convite-whatsapp.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://8c1e69abc9ee4e0f.flypod.page/convite-whatsapp.jpg" />
+    <title>João Rafael | Convite de Aniversário</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <button class="gate" id="openGate" type="button" aria-label="Abrir convite do João Rafael">
+      <span class="gate-sky" aria-hidden="true"></span>
+      <span class="gate-box">
+        <span class="gate-kicker">Um convite especial</span>
+        <span class="gate-title">Há uma aventura<br />esperando por você</span>
+        <span class="gate-text">Toque para abrir o quarto dos brinquedos do João Rafael.</span>
+        <span class="gate-button" role="presentation">Abrir convite</span>
+      </span>
+    </button>
+
+    <div class="stage" id="stage" hidden>
+      <button class="float-music" id="musicToggle" type="button" aria-pressed="false" aria-label="Tocar música">
+        <span class="music-icon" aria-hidden="true">♪</span>
+        <span class="music-label">Música</span>
+      </button>
+
+      <header class="hero" id="inicio">
+        <div class="hero-sky" aria-hidden="true"></div>
+        <div class="hero-shell">
+          <div class="hero-content">
+            <h1>
+              <span class="hero-of">Aniversário do</span>
+              João Rafael
+            </h1>
+            <p class="hero-line">
+              O quarto dos brinquedos abre as portas para celebrar seus 5 anos.
+            </p>
+            <a class="cta" href="#confirmar">Confirmar presença</a>
+          </div>
+          <figure class="hero-portrait">
+            <img
+              src="./joao-hero.jpg"
+              alt="João Rafael vestido de cowboy na festa Toy Story"
+              width="864"
+              height="1152"
+              fetchpriority="high"
+            />
+          </figure>
+        </div>
+        <div class="hero-scroll" aria-hidden="true">
+          <span>Desça para a missão</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="story-section" aria-labelledby="storyTitle">
+          <div class="story-wrap">
+            <div class="story-heading">
+              <p class="section-kicker">A aventura</p>
+              <h2 id="storyTitle">Os brinquedos já estão prontos</h2>
+            </div>
+
+            <div class="mosaic-card">
+              <figure class="mosaic-cell mosaic-wide">
+                <img
+                  class="fit-scene"
+                  src="./turma-aventura-brinquedos.jpg"
+                  alt="Turma de brinquedos na festa"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+              </figure>
+              <figure class="mosaic-cell mosaic-portrait">
+                <img
+                  class="fit-face"
+                  src="./joao-hero.jpg"
+                  alt="João Rafael de cowboy"
+                  width="864"
+                  height="1152"
+                  loading="lazy"
+                />
+              </figure>
+              <figure class="mosaic-cell mosaic-portrait">
+                <img
+                  class="fit-face"
+                  src="./joao-aventura-brinquedos.jpg"
+                  alt="João na aventura dos brinquedos"
+                  width="864"
+                  height="1152"
+                  loading="lazy"
+                />
+              </figure>
+              <figure class="mosaic-cell mosaic-wide">
+                <img
+                  class="fit-scene"
+                  src="./festa-galaxia-brinquedos.jpg"
+                  alt="Festa na galáxia dos brinquedos"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="mission-section" id="detalhes">
+          <div class="mission-wrap">
+            <p class="section-kicker">Missão confirmada</p>
+            <h2>Guarde o ponto de encontro</h2>
+
+            <div class="mission-board">
+              <div class="mission-when">
+                <span>Quando</span>
+                <strong>19</strong>
+                <em>novembro 2026</em>
+                <p>Quinta-feira · a partir das 19h</p>
+                <button class="linkish" id="calendarButton" type="button">Salvar na agenda</button>
+              </div>
+              <div class="mission-where">
+                <span>Onde</span>
+                <strong>Buffet Magic Time</strong>
+                <p>Av. Presidente Costa e Silva, 1248<br />Boqueirão — Praia Grande/SP</p>
+                <a
+                  class="linkish"
+                  href="https://www.google.com/maps/search/?api=1&query=Buffet+Magic+Time+Av+Presidente+Costa+e+Silva+1248+Boqueirao+Praia+Grande+SP"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Abrir no mapa
+                </a>
+              </div>
+            </div>
+
+            <div class="ticker" aria-label="Contagem regressiva">
+              <div><strong id="days">--</strong><span>dias</span></div>
+              <div><strong id="hours">--</strong><span>horas</span></div>
+              <div><strong id="minutes">--</strong><span>min</span></div>
+              <div><strong id="seconds">--</strong><span>seg</span></div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="rsvp-section" id="confirmar">
+          <div class="rsvp-shell">
+            <div class="rsvp-intro">
+              <p class="section-kicker">Sua resposta</p>
+              <h2>Você embarca nessa aventura?</h2>
+              <p>Informe quem vem com você. Idade só quando for criança.</p>
+            </div>
+
+            <form class="rsvp-form" id="rsvpForm">
+              <fieldset>
+                <legend>Presença</legend>
+                <div class="attendance-options">
+                  <label class="radio-card">
+                    <input type="radio" name="attendance" value="sim" checked />
+                    <span class="radio-face">
+                      <strong>Sim, eu vou</strong>
+                      <small>Até o infinito e além</small>
+                    </span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="attendance" value="nao" />
+                    <span class="radio-face">
+                      <strong>Não poderei ir</strong>
+                      <small>Fico para a próxima</small>
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="form-group">
+                <label for="guestName">Seu nome</label>
+                <input
+                  id="guestName"
+                  name="guestName"
+                  type="text"
+                  placeholder="Como podemos te chamar?"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div id="partyFields">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="guestType">Você é</label>
+                    <select id="guestType" name="guestType">
+                      <option value="adulto">Adulto</option>
+                      <option value="crianca">Criança</option>
+                    </select>
+                  </div>
+                  <div class="form-group" id="guestAgeGroup" hidden>
+                    <label for="guestAge">Idade da criança</label>
+                    <input
+                      id="guestAge"
+                      name="guestAge"
+                      type="number"
+                      min="0"
+                      max="17"
+                      placeholder="Idade"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="companionCount">Quem vai com você?</label>
+                  <select id="companionCount" name="companionCount">
+                    <option value="0">Sem acompanhantes</option>
+                    <option value="1">1 acompanhante</option>
+                    <option value="2">2 acompanhantes</option>
+                    <option value="3">3 acompanhantes</option>
+                    <option value="4">4 acompanhantes</option>
+                  </select>
+                </div>
+                <div class="companions" id="companions" aria-live="polite"></div>
+              </div>
+
+              <button class="cta cta-submit" type="submit">
+                <span>Enviar confirmação</span>
+              </button>
+              <p class="form-note">
+                Sua resposta entra na lista de convidados e chega ao responsável.
+              </p>
+            </form>
+          </div>
+        </section>
+
+        <section class="closing-section">
+          <p class="section-kicker">Tem um amigo em mim</p>
+          <h2>Te esperamos no dia 19</h2>
+          <p>Com carinho, João Rafael Bitencourt Domingues e família.</p>
+          <a class="linkish" href="#inicio">Voltar ao começo</a>
+        </section>
+      </main>
+
+      <footer>
+        <span>João Rafael · 19.11.2026</span>
+        <span>Buffet Magic Time · Praia Grande</span>
+      </footer>
+    </div>
+
+    <aside class="music-player" id="musicPlayer" hidden aria-label="Player da trilha">
+      <div class="music-player-head">
+        <div>
+          <small>Trilha instrumental original</small>
+          <strong>Aventura dos brinquedos</strong>
+        </div>
+        <button id="closeMusic" type="button" aria-label="Pausar música">Ⅱ</button>
+      </div>
+      <audio id="backgroundMusic" src="./trilha-aventura.mp3" loop preload="metadata"></audio>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
