@@ -1,7 +1,7 @@
 const PARTY_DATE = new Date("2026-11-19T19:00:00-03:00");
 const CONFIG = {
   whatsappNumber: "5513982056608",
-  siteUrl: window.location.origin + window.location.pathname.replace(/\/?$/, "/"),
+  siteUrl: `${window.location.origin}${window.location.pathname.replace(/\/?$/, "/")}`,
   appsScriptUrl:
     "https://script.google.com/macros/s/AKfycbzXYo44mowQqAhw6DCliavxXbMsa_E-H52g6ujNlAAkmcYqA3BJzTJZZFzpbMMYnCgL1Q/exec",
 };
@@ -278,6 +278,7 @@ async function sendConfirmation(submission) {
 }
 
 function buildInviteMessage() {
+  const inviteImageUrl = new URL("convite-whatsapp.jpg", CONFIG.siteUrl).href;
   return [
     "Você está convidado!",
     "",
@@ -291,46 +292,30 @@ function buildInviteMessage() {
     "",
     "Confirme sua presença e quem vai com você aqui:",
     CONFIG.siteUrl,
+    "",
+    "Imagem do convite:",
+    inviteImageUrl,
   ].join("\n");
-}
-
-async function getInviteImageFile() {
-  const response = await fetch("./convite-whatsapp.jpg");
-  const blob = await response.blob();
-  return new File([blob], "convite-joao-rafael.jpg", { type: "image/jpeg" });
-}
-
-function downloadInviteImage() {
-  const link = document.createElement("a");
-  link.href = "./convite-whatsapp.jpg";
-  link.download = "convite-joao-rafael.jpg";
-  link.click();
 }
 
 async function shareInviteOnWhatsApp() {
   const message = buildInviteMessage();
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
 
-  try {
-    const file = await getInviteImageFile();
-    if (navigator.canShare?.({ files: [file], text: message })) {
-      await navigator.share({
-        files: [file],
-        title: "Convite — João Rafael",
-        text: message,
-      });
-      showToast("Convite compartilhado!");
-      return;
-    }
-  } catch (error) {
-    if (error?.name === "AbortError") return;
+  // WhatsApp costuma descartar o texto quando enviamos só o arquivo.
+  // Abrimos a conversa com texto + link de confirmação (+ link da imagem).
+  const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  if (popup) {
+    showToast("Mensagem pronta com o link de confirmação!");
+    return;
   }
 
-  downloadInviteImage();
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-  window.setTimeout(() => {
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  }, 350);
-  showToast("Imagem baixada! Anexe-a no WhatsApp com o link.");
+  try {
+    await navigator.clipboard.writeText(message);
+    showToast("Texto copiado! Cole no WhatsApp.");
+  } catch {
+    showToast("Não foi possível abrir o WhatsApp.");
+  }
 }
 
 function downloadCalendarEvent() {
