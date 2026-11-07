@@ -4,14 +4,19 @@ Animação infantil 2D (~60s) com voz em português. Manu (11) prepara a festa s
 
 ## Assistir
 
-- **Vídeo final (MP4 1080p + áudio):** [`output/joao-e-manu-ep1.mp4`](output/joao-e-manu-ep1.mp4)
-- **No navegador:** sirva a pasta e abra `index.html`
+- **Player no navegador (recomendado):** [`player.html`](player.html)
+- **MP4 1080p (30 fps, H.264 Main):** [`output/joao-e-manu-ep1.mp4`](output/joao-e-manu-ep1.mp4)
+- **MP4 720p (Baseline, mais compatível):** [`output/joao-e-manu-ep1-720p.mp4`](output/joao-e-manu-ep1-720p.mp4)
+- **Animação interativa:** [`index.html`](index.html)
 
 ```bash
 cd animacao-joao-e-manu
 python3 -m http.server 8765
-# abra http://127.0.0.1:8765/ e clique em “Assistir (com áudio)”
+# Player: http://127.0.0.1:8765/player.html
+# Interativa: http://127.0.0.1:8765/
 ```
+
+> Se o arquivo baixado do GitHub não abrir no Windows, use o **720p** ou abra pelo `player.html` no navegador.
 
 ## Regenerar vozes e mix
 
