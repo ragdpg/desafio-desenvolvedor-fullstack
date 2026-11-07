@@ -1,0 +1,23 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Bem vindo ao desafio para Desenvolvedor Full Stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ragdpg/desafio-desenvolvedor-fullstack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ragdpg/desafio-desenvolvedor-fullstack/issues"
+  },
+  "homepage": "https://github.com/ragdpg/desafio-desenvolvedor-fullstack#readme",
+  "dependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}

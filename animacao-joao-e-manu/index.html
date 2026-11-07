@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>João e Manu — Ep.1 O Aniversário Surpresa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="stage-wrap">
+    <div id="stage" aria-label="Animação João e Manu">
+      <div class="sky"></div>
+      <img class="bg" src="assets/images/sala-festa.jpg" alt="" />
+
+      <div id="scene-title" class="scene">
+        <div class="title-card">
+          <p class="series">Série dos Irmãos</p>
+          <h1>João <span>&amp;</span> Manu</h1>
+          <p class="ep">Episódio 1 — O Aniversário Surpresa</p>
+        </div>
+      </div>
+
+      <div id="scene-decorate" class="scene">
+        <img class="balloons float" src="assets/images/baloes.png" alt="" />
+        <div class="banner">5 ANOS</div>
+        <img class="char manu" id="manu-decorate" src="assets/images/manu-shh.png" alt="Manu" />
+        <div class="bubble left" id="bubble-shh">Shh… surpresa pro João!</div>
+      </div>
+
+      <div id="scene-cake" class="scene">
+        <img class="balloons float slow" src="assets/images/baloes.png" alt="" />
+        <img class="cake" src="assets/images/bolo.png" alt="Bolo" />
+        <img class="char manu" id="manu-cake" src="assets/images/manu-feliz.png" alt="Manu" />
+        <div class="bubble left" id="bubble-vem">Joãozinho, vem cá!</div>
+      </div>
+
+      <div id="scene-surprise" class="scene">
+        <img class="balloons float" src="assets/images/baloes.png" alt="" />
+        <img class="cake small" src="assets/images/bolo.png" alt="Bolo" />
+        <img class="char manu" id="manu-surprise" src="assets/images/manu-feliz.png" alt="Manu" />
+        <img class="char joao enter" id="joao-surprise" src="assets/images/joao-surpreso.png" alt="João" />
+        <div class="bubble right" id="bubble-uau">Uau! É pra mim?</div>
+        <div class="bubble left" id="bubble-quase">Quase 5 anos!</div>
+      </div>
+
+      <div id="scene-celebrate" class="scene">
+        <div id="confetti"></div>
+        <img class="balloons float fast" src="assets/images/baloes.png" alt="" />
+        <img class="cake glow" src="assets/images/bolo.png" alt="Bolo" />
+        <img class="char manu hug" id="manu-celebrate" src="assets/images/manu-feliz.png" alt="Manu" />
+        <img class="char joao hug" id="joao-celebrate" src="assets/images/joao-feliz.png" alt="João" />
+        <div class="celebrate-text" id="parabens-text">Parabéns, João!</div>
+      </div>
+
+      <div id="scene-end" class="scene">
+        <div class="end-card">
+          <h2>Feliz quase 5 anos, João!</h2>
+          <p>Até o próximo episódio</p>
+          <p class="series-end">João &amp; Manu</p>
+        </div>
+      </div>
+
+      <div id="progress"><div id="progress-bar"></div></div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button id="btn-play" type="button">▶ Assistir (com áudio)</button>
+    <span id="time-label">0:00 / 1:00</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
