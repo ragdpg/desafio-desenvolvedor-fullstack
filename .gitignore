@@ -1,0 +1,5 @@
+node_modules/
+animacao-joao-e-manu/output/frames/
+animacao-joao-e-manu/output/video-silent.mp4
+*.log
+.DS_Store
